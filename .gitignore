@@ -36,3 +36,6 @@ msbuild.wrn
 
 # FSI references
 references.fsx
+
+# Remove archived data
+*.zip
