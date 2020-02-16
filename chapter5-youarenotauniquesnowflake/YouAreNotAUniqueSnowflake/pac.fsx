@@ -8,7 +8,7 @@ open XPlot.Plotly
 
 // Load data
 let folder = __SOURCE_DIRECTORY__
-let file = "test.csv"
+let file = "oldData.csv"
 
 let headers,observations =
     let raw =
