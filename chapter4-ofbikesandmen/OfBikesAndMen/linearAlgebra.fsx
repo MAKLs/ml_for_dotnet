@@ -58,7 +58,7 @@ let predictor (f:Featurizer) (theta:Vec) =
 
 let evaluate (model:Model) (data:Obs seq) =
     data
-    |> Seq.averageBy (fun obs -> abs (model obs - float obs.Cnt))
+    |> Seq.averageBy (fun obs -> abs ((model obs - float obs.Cnt) / (float obs.Cnt)))
 
 let model (f:Featurizer) (data:Obs seq) =
     let Yt, Xt =
@@ -121,8 +121,9 @@ let featurizer3 (obs:Obs) =
         obs.Hum |> float
         obs.Temp |> float
         obs.Windspeed |> float
+        obs.Windspeed * obs.Temp |> float
+        obs.Temp * obs.Hum |> float
         obs.Temp * obs.Temp |> float
-        obs.Atemp * obs.Atemp |> float
         if obs.Holiday then 1.0 else 0.0
         if obs.Weathersit = 1 then 1.0 else 0.0
         if obs.Weathersit = 2 then 1.0 else 0.0
@@ -153,3 +154,5 @@ plots
 |> Chart.WithLegend true
 |> Chart.WithSize (2000, 800)
 |> Chart.Show
+
+evaluate model3 data;;
